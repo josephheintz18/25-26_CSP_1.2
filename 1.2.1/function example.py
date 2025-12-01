@@ -12,7 +12,7 @@ def drawSquare():
 
 drawSquare()
 james.penup()
-james.forward(200)
+james.forward(-200)
 james.pendown()
 drawSquare()
 
