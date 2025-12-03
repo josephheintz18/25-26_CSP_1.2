@@ -5,16 +5,16 @@ import turtle as trtl
 james = trtl.Turtle()
 
 #Goal: Draw squares with a turtle
-def drawSquare():
+def drawSquare(length):
     for sides in range(4):
-        james.forward(100)
+        james.forward(length)
         james.right(90)
 
-drawSquare()
+drawSquare(62)
 james.penup()
 james.forward(-200)
 james.pendown()
-drawSquare()
+drawSquare(47)
 
 
 wn = trtl.Screen()
