@@ -5,13 +5,20 @@ import random as rand
 #-----game configuration----
 spot_color = "lime"
 score = 0
-font_setup = ("Arial", 20, "normal")
+
 
 #-----initialize turtle-----
 #The score turtle
 score_writer = trtl.Turtle()
 #The box turtle
 box_turtle = trtl.Turtle()
+#The timer turtle
+counter = trtl.Turtle()
+counter.hideturtle()
+font_setup = ("Arial", 20, "normal")
+timer = 30
+counter_interval = 1000  # 1000 represents 1 second
+timer_up = False
 score_writer.penup()
 score_writer.hideturtle()
 box_turtle.hideturtle()
@@ -22,8 +29,22 @@ pim.shapesize(3)
 pim.penup()
 box_turtle.speed(0)
 score_writer.speed(0)
-#-----game functions--------
-# Draw the box for the score
+
+# -----game functions-----
+def countdown():
+    global timer, timer_up
+    counter.clear()
+    counter.penup()
+    counter.goto(-375, 325)
+    counter.pendown()
+    if timer <= 0:
+        counter.write("You're out of time bum!!", font=font_setup)
+        timer_up = True
+    else:
+        counter.write("Timer: " + str(timer), font=font_setup)
+        timer -= 1
+        counter.getscreen().ontimer(countdown, counter_interval)
+
 def scoreBox():
     # Set up the starting location and pendown
     box_turtle.penup()
@@ -65,5 +86,6 @@ def update_score():
 pim.onclick(spot_clicked)
 
 scoreBox()
+countdown()
 wn = trtl.Screen()
 wn.mainloop()
