@@ -3,7 +3,7 @@ import turtle as trtl
 import random as rand
 
 #-----game configuration----
-spot_color = "lime"
+spot_color = "violet"
 score = 0
 
 
@@ -15,6 +15,7 @@ box_turtle = trtl.Turtle()
 #The timer turtle
 counter = trtl.Turtle()
 counter.hideturtle()
+#The background turtle
 font_setup = ("Arial", 20, "normal")
 timer = 30
 counter_interval = 1000  # 1000 represents 1 second
@@ -31,6 +32,9 @@ box_turtle.speed(0)
 score_writer.speed(0)
 
 # -----game functions-----
+colors = ["red", "violet", "lime", "yellow", "burgundy", "blue"]
+shapes = ["circle", "square", "triangle",]
+
 def countdown():
     global timer, timer_up
     counter.clear()
@@ -40,6 +44,8 @@ def countdown():
     if timer <= 0:
         counter.write("You're out of time bum!!", font=font_setup)
         timer_up = True
+        wn.bgcolor("red")
+        spot_color = "red"
     else:
         counter.write("Timer: " + str(timer), font=font_setup)
         timer -= 1
@@ -80,12 +86,15 @@ def update_score():
     score += 1
     score_writer.clear()
     # print the score
-    score_writer.write(score, font=font_setup)
+    score_writer.write(score, font=font_setup)\
+
 
 #-----events----------------
 pim.onclick(spot_clicked)
 
+
 scoreBox()
 countdown()
 wn = trtl.Screen()
+wn.bgcolor("lime")
 wn.mainloop()
