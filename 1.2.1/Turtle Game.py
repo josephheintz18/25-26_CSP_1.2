@@ -60,7 +60,7 @@ def scoreBox():
 
     # Place score_writer where it will write the score
     box_turtle.penup()
-    score_writer.goto(300, 332)
+    score_writer.goto(300, 332.5)
 
 # Get a score boost, move the turtle randomly
 def spot_clicked(x, y):
