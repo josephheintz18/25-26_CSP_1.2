@@ -1,7 +1,8 @@
+#1.2.2 file
 #-----import statements-----
 import turtle as trtl
 import random as rand
-import leadeboard as lb
+import leaderboard as lb
 
 #-----game configuration----
 spot_color = "violet"
@@ -25,8 +26,6 @@ box_turtle = trtl.Turtle()
 counter = trtl.Turtle()
 counter.hideturtle()
 #The background turtle
-leaderboard_file_name = "a122_leaderboard.txt"
-player_name = input("What is your name brotein shake?")
 font_setup = ("Papyrus", 20, "normal")
 timer = 30
 counter_interval = 1000  # 1000 represents 1 second
@@ -48,7 +47,6 @@ def countdown():
     if timer <= 0:
         counter.write("You're out of time bum!!", font=font_setup)
         timer_up = True
-        manage_leaderboard()
         wn.bgcolor("red")
         pim.hideturtle()
     else:
@@ -93,27 +91,6 @@ def update_score():
     # print the score
     score_writer.write(score, font=font_setup)\
 
-
-# CODE TO ADD
-# Add this function to your game code
-
-# manages the leaderboard for top 5 scorers
-def manage_leaderboard():
-
-  global score
-  global pim
-
-  # get the names and scores from the leaderboard file
-  leader_names_list = lb.get_names(leaderboard_file_name)
-  leader_scores_list = lb.get_scores(leaderboard_file_name)
-
-  # show the leaderboard with or without the current player
-  if (len(leader_scores_list) < 5 or score >= leader_scores_list[4]):
-    lb.update_leaderboard(leaderboard_file_name, leader_names_list, leader_scores_list, player_name, score)
-    lb.draw_leaderboard(True, leader_names_list, leader_scores_list, pim, score)
-
-  else:
-    lb.draw_leaderboard(False, leader_names_list, leader_scores_list, pim, score)
 
 #-----events----------------
 pim.onclick(spot_clicked)
