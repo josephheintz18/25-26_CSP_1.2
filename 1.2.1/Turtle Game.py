@@ -1,7 +1,7 @@
 #-----import statements-----
 import turtle as trtl
 import random as rand
-import leadeboard as lb
+import leaderboard as lb
 
 #-----game configuration----
 spot_color = "violet"
