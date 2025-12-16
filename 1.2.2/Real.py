@@ -1,16 +1,19 @@
 #-----import statements-----
 import turtle as trtl
 import random as rand
+#import leaderboard as lb
 
-#Initialize
+#-----game configuration----
+spot_color = "navy"
+score = 0
 font_setup = ("papyrus", 20, "normal")
-timer = 5
+timer = 30
 counter_interval = 1000   #1000 represents 1 second
 timer_up = False
-spot_color = "Purple"
 
+#-----initialize turtle-----
 leaderboard_file_name = "a122_leaderboard.txt"
-player_name = input("What is your name?")
+player_name = input("Enter your name?")
 
 # Score turtle
 score_writer = trtl.Turtle()
@@ -26,7 +29,7 @@ box_turtle.penup()
 pim = trtl.Turtle()
 pim.shape("circle")
 pim.color(spot_color)
-pim.shapesize(3)
+pim.shapesize(3.5)
 pim.penup()
 
 #-----game functions--------
@@ -61,6 +64,7 @@ def spot_clicked(x, y):
 
 def change_position():
     # Move the turtle to a random location
+    pim.speed(0)
     newX = rand.randint(-300, 300)
     newY = rand.randint(-300, 300)
     pim.goto(newX, newY)
@@ -89,25 +93,43 @@ def countdown():
   global timer, timer_up
   counter.clear()
   if timer <= 0:
-    counter.write("Time's Up", font=font_setup)
+    counter.write("Time's Up you bum", font=font_setup)
     timer_up = True
+    manage_leaderboard()
+
+
   else:
     counter.write("Timer: " + str(timer), font=font_setup)
     timer -= 1
     counter.getscreen().ontimer(countdown, counter_interval)
-    wn.bgcolor("red")
-    pim.hideturtle()
 
 # CODE TO ADD
 # Add this function to your game code
 
 # manages the leaderboard for top 5 scorers
+def manage_leaderboard():
+
+  global score
+  global moewl
+
+  # get the names and scores from the leaderboard file
+  leader_names_list = lb.get_names(leaderboard_file_name)
+  leader_scores_list = lb.get_scores(leaderboard_file_name)
+
+  # show the leaderboard with or without the current player
+  if (len(leader_scores_list) < 5 or score >= leader_scores_list[4]):
+    lb.update_leaderboard(leaderboard_file_name, leader_names_list, leader_scores_list, player_name, score)
+    lb.draw_leaderboard(True, leader_names_list, leader_scores_list, moewl, score)
+
+  else:
+    lb.draw_leaderboard(False, leader_names_list, leader_scores_list, moewl, score)
+
 
 #-----events----------------
 pim.onclick(spot_clicked)
 counter_setup()
 scoreBox()
 wn = trtl.Screen()
-wn.bgcolor("green")
+wn.bgcolor("maroon")
 wn.ontimer(countdown, counter_interval)
 wn.mainloop()
