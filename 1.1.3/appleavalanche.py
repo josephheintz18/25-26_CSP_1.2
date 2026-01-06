@@ -11,7 +11,13 @@ wn.addshape(apple_image) # Make the screen aware of the new file
 
 wn.bgpic("background.gif")
 apple = trtl.Turtle()
+drawer = trtl.Turtle()
+drawer.hideturtle()
 apple.penup()
+
+#Make list for letters
+letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+
 
 # given a turtle, set that turtle to be shaped by the image file
 def draw_apple(active_apple):
@@ -21,14 +27,18 @@ def draw_apple(active_apple):
   wn.tracer(True)
 
 def drop_apple():
+  wn.tracer(True)
   apple.goto(apple.xcor(), ground_height)
+  wn.tracer(False)
+  drawer.clear()
+  drawer.hideturtle()
 
-def draw_letter(letter, active_apple):
-  active_apple.color("white")
-  remember_position = active_apple.position()
-  active_apple.setpos(active_apple.xcor() + apple_letter_x_offset,active_apple.ycor() + apple_letter_y_offset)
-  active_apple.write(letter, font=("Arial", 74, "bold"))
-  active_apple.setpos(remember_position)
+def draw_letter(letter, drawer):
+  drawer.color("white")
+  remember_position = drawer.position()
+  drawer.setpos(drawer.xcor() + apple_letter_x_offset,drawer.ycor() + apple_letter_y_offset)
+  drawer.write(letter, font=("Arial", 74, "bold"))
+  drawer.setpos(remember_position)
 
 draw_apple(apple)
 wn.onkeypress(drop_apple, "a")
