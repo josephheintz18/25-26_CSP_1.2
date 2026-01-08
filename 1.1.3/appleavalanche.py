@@ -1,10 +1,11 @@
 import turtle as trtl
+import random as rand
 
 apple_image = "apple.gif" # Store the file name of your shape
 ground_height = -800
 apple_letter_x_offset = -25
 apple_letter_y_offset = -50
-
+current_letter = "a"
 wn = trtl.Screen()
 wn.setup(width=1.0, height=1.0)
 wn.addshape(apple_image) # Make the screen aware of the new file
@@ -18,12 +19,11 @@ apple.penup()
 #Make list for letters
 letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
-
 # given a turtle, set that turtle to be shaped by the image file
 def draw_apple(active_apple):
-  active_apple.shape(apple_image)
+  active_apple.shape(apple_image, current_letter)
   wn.tracer(False)
-  draw_letter("A", active_apple)
+  draw_letter(current_letter, active_apple)
   wn.tracer(True)
 
 def drop_apple():
@@ -32,6 +32,7 @@ def drop_apple():
   wn.tracer(False)
   drawer.clear()
   drawer.hideturtle()
+  reset_apple(apple)
 
 def draw_letter(letter, drawer):
   drawer.color("white")
@@ -39,6 +40,17 @@ def draw_letter(letter, drawer):
   drawer.setpos(drawer.xcor() + apple_letter_x_offset,drawer.ycor() + apple_letter_y_offset)
   drawer.write(letter, font=("Arial", 74, "bold"))
   drawer.setpos(remember_position)
+
+def reset_apple(active_apple):
+    #Generate random number - > pop that index
+    #The letter we pop becomes the letter on the apple
+    length_of_list = len(letters)
+    if (length_of_list != 0):
+        index = rand.randint(0, length_of_list)
+        current_letter = letters.pop(index)
+        active_apple.goto()
+        draw_apple(active_apple, current_letter)
+
 
 draw_apple(apple)
 
@@ -57,9 +69,8 @@ draw_apple(apple)
 # add the new apples to a list of apples to be used in the rest of the program.
 # The loop below executes the correct number of times by using the range() function
 # to create a list of numbers to iterate over.
-for i in range(0, number_of_apples):
-  #Your code here
 
+#Your code here
 #TODO Create a function that takes a letter as its parameter, retrieve a
 # random turtle (apple) and causes the turtle (apple) to drop from the tree and the letter
 # to disappear. Call the apple reseting function.
